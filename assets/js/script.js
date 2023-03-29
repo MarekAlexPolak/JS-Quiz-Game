@@ -1,7 +1,7 @@
-var generateBtn = $("#startq");
-var genQues = $("h2");
-var ansElem = $(".list-item");
-
+var generateBtn = document.querySelector("#startq");
+var genQues = document.querySelector("#header");
+var ansElem = document.querySelector(".list-item");
+console.log(genQues);
 //lets make an array of objects 
 
 var question = [
@@ -30,24 +30,68 @@ var question = [
         ans: "This is answer 6"
     },
 ];
+var savedQuest = [];
 
-//our array is done now we need to figure out how to randomly place the button with this answer.
+var wrongAns = [
+    "random stuff",
+    "array of",
+    "more wrong",
+    "another wrong",
+    "still making",
+    "i wonder",
+    "apparently"
+
+];
+function chooseQuest(){
+    var aNum = Math.floor(Math.random()*question.length);
+    var x = question[aNum];
+    savedQuest.push(question[aNum]);
+    question.splice(aNum, 1);
+    return x;
+}
+
+function genRandomAns(){
+    
+    for (let i = 0; i < 4; i++){
+        var listitem1 = document.createElement("li");
+        listitem1.setAttribute("type", "button");
+        ansElem.appendChild(listitem1);    
+    }
+}
+function changeButtons(){
+    for (let i = 0; i < 4; i++){
+        var aNum = Math.floor(Math.random()*4);
+        ansElem.children[i].textContent = wrongAns[aNum];    
+    }
+
+}
+function genCorrectAns(chosenQuest){
+
+    var aNum = Math.floor(Math.random()*4);
+    ansElem.children[aNum].textContent = chosenQuest;
+    return ansElem.children[aNum].textContent;
+    
+}
+
+function resetGame() {
+    question = savedQuest;
+    savedQuest = []; 
+
+}
 function genGame() {
-    genQues.text(question[0].quest);
-  
-   generateBtn.remove();
+    genRandomAns();
+    playGame();
+}
 
-   var ansAElem = $(
-    '<li class="flex-row justify-space-between align-center p-2 bg-light text-dark">'
-  );
-  ansAElem.append(
-    '<button class="btn btn-danger btn-small delete-item-btn">This is the button</button>'
-  );
-  ansElem.append(ansAElem);
-  console.log(question[4].ans)
-
+function playGame(){
+    var chosenQuest = chooseQuest();
+    genQues.textContent =chosenQuest.quest;
+    changeButtons();
+    genCorrectAns(chosenQuest.ans); 
+    generateBtn.remove();
 }
 function endGame() {
 
 }
-generateBtn.click(genGame);
+generateBtn.addEventListener("click", genGame);
+ansElem.addEventListener("click", playGame);
