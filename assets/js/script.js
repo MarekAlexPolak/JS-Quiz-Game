@@ -173,6 +173,7 @@ function endGame() {
     while (ansElem.firstChild){
         ansElem.removeChild(ansElem.lastChild);
    }
+   
    //var userName = prompt("please input your name");
     generateBtn.disabled = false;
     gameCount = 0;
@@ -185,7 +186,8 @@ function endGame() {
     userAns = '';
     displayScores();
     genQues.textContent = "Click Start to Begin the Quiz";
-    timerCount = 1;
+    clearInterval(timer);
+    timerElement.textContent = 0;
    
 }
 
