@@ -144,7 +144,7 @@ function deleScores(){
 }
 //function which generates the quiz
 function genGame(event) {
-    timerCount = 20;
+    timerCount = 50;
     corAns = 0;
     deleScores();
     genRandomAns();
@@ -185,6 +185,8 @@ function endGame() {
     userAns = '';
     displayScores();
     genQues.textContent = "Click Start to Begin the Quiz";
+    timerCount = 1;
+   
 }
 
 
